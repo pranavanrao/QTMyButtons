@@ -8,8 +8,8 @@ MyWidget::MyWidget(QWidget *parent)
     : QWidget(parent)
 {
     QStringList fonts = {"Arial","Helvetica","Times","Helvetica","Times"};
-    this->m_hLayout = new QHBoxLayout;
-    for (int i = 0; i < 5; ++i) {
+    this->m_hLayout = new QHBoxLayout(this);
+    for (int i = 0; i < 5; i++) {
         m_buttons[i] = new QPushButton(fonts.at(i));
         m_hLayout -> addWidget(m_buttons[i]);
     }
@@ -17,4 +17,11 @@ MyWidget::MyWidget(QWidget *parent)
     this->setLayout(m_hLayout);
 }
 
-MyWidget::~MyWidget() {}
+MyWidget::~MyWidget() {
+    for (int i = 0; i < 5; i++) {
+        delete m_buttons[i];
+    }
+    if (m_hLayout) {
+        delete m_hLayout;
+    }
+}
